@@ -1,37 +1,32 @@
 #include<bits/stdc++.h>
 using namespace std;
 typedef long long ll;
-
-ll pot(ll a, ll b){
-    ll ans = 1LL;
-    while(b){
-        if(b&1)ans *= a;
-        a = a*a;
-        b >>= 1;
-    }
-    return ans;
-}
 int main(){
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
     ll t; cin >> t;
     while(t--){
-        ll n; cin >> n;
-        string s;
-        int i = 1;
-        for(; i <= 1000000; i++){
-            s = to_string(i);
-            if(n >= s.size()){
-                n -= s.size();
-                if(n==0)break;
+        ll n, m;
+        cin >> n >> m;
+        ll cont = 0, x;
+        map<ll,ll> mp1;
+        for(int i = 0; i < n; i++){
+            vector<ll> v;
+            for(int j = 0; j < m; j++){
+                cin >> x;
+                v.push_back(x);
+                if(i!=0){
+                    if(mp1[x]){
+                        cont++;
+                        mp1[x]--;
+                    }
+                }
             }
-            else break;
+            mp1.clear();
+            for(int j = 0; j < m; j++){
+                mp1[v[j]]++;
+            }
         }
-        if(n == 0){
-            cout << s << "\n";
-            cout << s[s.size()-1] << "\n";
-        }
-        else{
-            cout << s << "\n";
-            cout << s[n-1] << "\n";
-        }
+        cout << cont << "\n";
     }
 }
